@@ -35,9 +35,13 @@
                         <div class="col-md-12 grid-margin stretch-card">
                             <div class="card">
                                 <div class="card-body">
-                                    <h2 class="card-title">{{$post->title}}</h2>
+                                    <h2 class="card-title">{{$author->author_name}}</h2>
                                     <p class="card-description">Write text in <code>&lt;p&gt;</code> tag</p>
-                                    <div>{{$post->blog_content}}</div>
+                                    <div>{!! $author->author_bio !!}</div>
+                                    <div class="mt-5">
+                                        <a href="{{ Route('blog.single.author', ['slug' => $author->id ]) }}" class="btn btn-success" target="_blank">View Author</a> -
+                                        <a href="{{ Route('admin.author.edit', ['id' => $author->id ]) }}" class="btn btn-primary">Edit Author</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -46,23 +50,22 @@
                 <div class="col-md-4 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title">Featured Image</h4>
-                            <address>
-                                @if (array_key_exists($post->author, $user))
-                                    <p><b style="display: inline-block; width: 45%;">Author </b>: <a href="{{'/backend/user/'.strtolower($user[$post->author])}}">{{$user[$post->author]}}</a></p>
-                                @endif
-                                @if (array_key_exists($post->category, $post_cat))
-                                    <p><b style="display: inline-block; width: 45%;">Category </b>: <a href="{{'/backend/category/'.strtolower($post_cat[$post->category])}}">{{$post_cat[$post->category]}}</a></p>
-                                @endif
-                                <p><b style="display: inline-block; width: 45%;">Created At </b>: {{$post->created_at}}</p>
-                                <p><b style="display: inline-block; width: 45%;">Updated Last </b>: {{$post->updated_at}}</p>
-                            </address>
-                            <hr>
+
                             <h4 class="card-title">Featured Image</h4>
                             <!-- <p class="card-description">Add tags <code>&lt;h1&gt;</code> to <code>&lt;h6&gt;</code> or class <code>.h1</code> to <code>.h6</code></p> -->
                             <div class="template-demo">
-                                <img class="img-fluid" src="{{$post->featured_image}}" alt="">
+                                <img class="img-fluid" src="{{$author->author_image}}" alt="">
                             </div>
+
+                            <hr>
+
+                            <h4 class="card-title">Additional Information</h4>
+                            <address>
+                                <p><b style="display: inline-block; width: 45%;">Email Address</b>: {{$author->author_email}}</p>
+                                <p><b style="display: inline-block; width: 45%;">Created At </b>: {{$author->created_at}}</p>
+                                <p><b style="display: inline-block; width: 45%;">Updated Last </b>: {{$author->updated_at}}</p>
+                            </address>
+
                         </div>
                     </div>
                 </div>

@@ -4,24 +4,21 @@
         <div class="row">
             <div class="col-lg-8 single-content">
                 <p class="mb-5">
-                    <img src="{{ $post->featured_image }}" alt="Image" class="img-fluid">
+                    <img src="{{ $theAuthor->author_image }}" alt="Image" class="img-fluid">
                 </p>
                 <h1 class="mb-4">
-                    {{$post->title}}
+                    {{$theAuthor->author_name}}
                 </h1>
                 <div class="post-meta d-flex mb-5">
                     <div class="bio-pic mr-3">
-                        <img src="{{ $theAuthor->a_featured }}" alt="Image" class="img-fluid">
+                        <img src="{{ asset('assets/images/person_1.jpg') }}" alt="Image" class="img-fluidid">
                     </div>
                     <div class="vcard">
-                        <span class="d-block">
-                            <a href="{{'/author/'.strtolower($post->author)}}">{{$theAuthor->a_name}}</a> in
-                            <a href="{{'/category/'.strtolower($post->category)}}">{{$post->category}}</a>
-                        </span>
-                        <span class="date-read">{{date_format($post->created_at, 'Y / m / d')}} <span class="mx-1">&bullet;</span> 3 min read <span class="icon-star2"></span></span>
+                        <span class="date-read">{{date_format($theAuthor->created_at, 'Y / m / d')}} <span class="mx-1">&bullet;</span> 3 min read <span class="icon-star2"></span></span>
                     </div>
                 </div>
-                {{$post['blog_content']}}
+                {{$theAuthor->author_bio}}
+                <x-counterComponent />
                 <div class="pt-5">
                     <p>Categories: <a href="#">Design</a>, <a href="#">Events</a> Tags: <a href="#">#html</a>, <a href="#">#trends</a></p>
                 </div>

@@ -16,7 +16,9 @@ class sidebarComponent extends Component
     public $recentPost;
     public $users;
     public $categories;
-    public function __construct()
+    public function __construct(
+        public string $category = ''
+    )
     {
         $this->users = array(
             1 => "Rahul",
@@ -32,7 +34,8 @@ class sidebarComponent extends Component
             5 => "Sport",
         );
         $this->recentPost = Blog::all();
-        //
+
+
     }
 
     /**

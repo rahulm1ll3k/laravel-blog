@@ -108,7 +108,7 @@
                 </div>
             </div>
             <div class="col-lg-3">
-                @include('blog.templates.sidebar')
+                <x-sidebarComponent />
             </div>
         </div>
         <div class="row">

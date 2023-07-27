@@ -41,15 +41,9 @@
                   <p class="card-description">Everything Except the email address can be edited</p>
 
                   @if (session()->has('success'))
-                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            {{session()->get('success')}}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
+                    <x-AlertComponent type="session" class="success" value="success"/>
                   @elseif (session()->has('err'))
-                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            {{session()->get('err')}}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
+                    <x-AlertComponent class="danger" value="danger"/>
                   @endif
 
                   <form class="forms-sample" action="/backend/author-add" method="post" enctype="multipart/form-data">

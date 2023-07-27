@@ -3,25 +3,20 @@
 namespace App\View\Components;
 
 use Illuminate\View\Component;
+use App\Models\Blog;
 
-class counterComponent extends Component
+class HomeSliderComponent extends Component
 {
     /**
      * Create a new component instance.
      *
      * @return void
      */
-
-    public $count = 0;
-
+    public $slidePosts;
     public function __construct()
     {
-        //
-    }
 
-    public function increment() {
-
-        $this->counter++;
+        $this->slidePosts = Blog::all();
 
     }
 
@@ -32,6 +27,6 @@ class counterComponent extends Component
      */
     public function render()
     {
-        return view('components.counter-component');
+        return view('components.home-slider-component');
     }
 }

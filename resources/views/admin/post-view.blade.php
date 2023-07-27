@@ -38,6 +38,10 @@
                                     <h2 class="card-title">{{$post->title}}</h2>
                                     <p class="card-description">Write text in <code>&lt;p&gt;</code> tag</p>
                                     <div>{{$post->blog_content}}</div>
+                                    <div class="mt-5">
+                                        <a href="{{ Route('blog.single.post', ['slug' => $post->slug ]) }}" class="btn btn-success" target="_blank">View Post</a> -
+                                        <a href="{{ Route('blog.single.edit', ['slug' => $post->id ]) }}" class="btn btn-primary">Edit Post</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -46,7 +50,7 @@
                 <div class="col-md-4 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title">Featured Image</h4>
+                            <h4 class="card-title">Additional Information</h4>
                             <address>
                                 @if (array_key_exists($post->author, $user))
                                     <p><b style="display: inline-block; width: 45%;">Author </b>: <a href="{{'/backend/user/'.strtolower($user[$post->author])}}">{{$user[$post->author]}}</a></p>

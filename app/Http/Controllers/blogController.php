@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Blog;
+use App\Models\Author;
 
 class blogController extends Controller
 {
@@ -75,38 +76,25 @@ class blogController extends Controller
     //
     public function getSingle($slug) {
 
-        $auth = array(
-            1 => "Rahul",
-            2 => "Wahidul",
-            3 => "Touhid",
-            4 => "Farhan Sadiq",
-        );
-        $cat = array(
-            1 => "Politics",
-            2 => "Business",
-            3 => "Health",
-            4 => "Design",
-            5 => "Sport",
-        );
-
         if(!isset($slug) || empty($slug)) {
             return redirect()->back();
         }
 
-        $allPosts = Blog::all();
         $postExists = Blog::where('slug', '=', $slug);
 
         if($postExists->count() > 0) {
-            $getAll = $postExists->get();
-            $post = $getAll[0];
-            return view(
-                'blog.blog-single', [
-                    'post' => $post,
-                    'user' => $auth,
-                    'post_cat' => $cat,
-                    'resent_posts' => $allPosts
-                ]
+
+            $post = $postExists->get()->first();
+
+            $authorSelectList = array(
+                'author_name as a_name',
+                'author_image as a_featured'
             );
+
+            $theAuthor = Author::select($authorSelectList)->where('id', '=', $post->author)->get()->first();
+
+            return view('blog.blog-single', compact('post', 'theAuthor'));
+
         } else {
             return redirect('/')->with(['error' => 'Article Not Found']);
         }
@@ -120,6 +108,47 @@ class blogController extends Controller
     //
     public function contact() {
         return view('blog.contact');
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //
+    public function allAuthors() {
+
+        $allAuthors = Author::paginate(10);
+
+        return view('blog.author-all', compact('allAuthors'));
+
+    }
+
+    //
+    public function getSingleAuthor($id) {
+
+        if(!isset($id) || empty($id)) {
+            return redirect()->route('blog.author')->with(['error' => 'Author Not Found']);
+        }
+
+        $theAuthor = Author::find($id);
+
+        if(!$theAuthor) {
+            return redirect()->route('blog.author')->with(['error' => 'Author Not Found']);
+        }
+
+        $allPosts = Blog::where('author', '=', $theAuthor->id)->get();
+
+        return view('blog.author-single-list', compact('theAuthor','allPosts'));
     }
 
 }
